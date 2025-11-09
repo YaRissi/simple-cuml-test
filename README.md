@@ -1,3 +1,19 @@
+# Installationsanleitung
+
+Diese Anleitung führt dich Schritt für Schritt durch die Installation
+
+## Inhaltsverzeichnis
+
+1. [CUDA-Installation (für beide Methoden)](#cuda-installation-für-beide-methoden)
+2. [Lokale Installation](#lokale-installation)
+3. [VS Code Dev Container (mit Docker)](#vs-code-dev-container-mit-docker)
+
+---
+
+## CUDA-Installation (für beide Methoden)
+
+Die folgenden Schritte sind notwendig, unabhängig davon, ob du lokal oder im Dev Container arbeitest.
+
 ## Schritt 1: Ubuntu-Version überprüfen
 
 Überprüfe zuerst deine Ubuntu-Version:
@@ -82,7 +98,10 @@ Du solltest die NVIDIA CUDA Compiler-Version sehen (z.B. "Cuda compilation tools
 
 ---
 
-## Schritt 7: UV Package Manager installieren
+## Lokale Installation
+
+
+## UV Package Manager installieren
 
 Installiere den `uv` Package Manager von Astral:
 
@@ -98,7 +117,7 @@ uv sync
 
 ---
 
-## Schritt 8: Projekt testen
+## Projekt testen
 
 ### Einfacher Test - Hauptprogramm ausführen:
 
@@ -108,7 +127,7 @@ uv run main.py
 
 ---
 
-## Schritt 9: GPU-Nutzung testen
+## GPU-Nutzung testen
 
 Überprüfe, ob die GPU tatsächlich verwendet wird:
 
@@ -118,11 +137,65 @@ uv run gpu_test.py
 
 ---
 
-## Fehlerbehebung
+### Fehlerbehebung (Lokale Installation)
 
 Falls Probleme auftreten:
 
 1. **CUDA wird nicht erkannt**: Stelle sicher, dass `nvcc --version` funktioniert und die LD_LIBRARY_PATH korrekt gesetzt ist
 2. **GPU wird nicht erkannt**: Überprüfe, ob die GPU-Treiber installiert sind (`nvidia-smi` sollte funktionieren)
+
+---
+
+## VS Code Dev Container (mit Docker, falls du docker zu laufen bekommst 👀)
+
+### Voraussetzungen
+
+- **VS Code** installiert
+- **Docker** mit GPU-Unterstützung (NVIDIA Container Toolkit)
+- **Dev Containers Extension** für VS Code
+
+### Dev Container starten
+
+1. Öffne das Projekt in VS Code
+2. Drücke **Cmd/Ctrl+Shift+P** und suche nach `Dev Containers: Reopen in Container`
+3. VS Code startet den Container mit:
+   - RAPIDS AI mit CUDA 12
+   - Python 3.13
+   - GPU-Unterstützung
+   - Alle Dependencies vorinstalliert
+
+### Was im Dev Container enthalten ist
+
+- **NVIDIA RAPIDS AI Base Image** (25.10 mit CUDA 12)
+- **Python 3.13** mit Conda
+- **cuDF, cuML, cuGraph** für GPU-Datenverarbeitung
+- **Git, Curl, Build Tools** für die Entwicklung
+- **VS Code Extensions** (Python, Pylance, Debugger)
+- **Jupyter & App Ports** (8888, 8080) automatisch weitergeleitet
+
+### Dev Container Konfiguration
+
+Die Konfiguration befindet sich in `.devcontainer/devcontainer.json`:
+
+```json
+{
+  "image": "nvcr.io/nvidia/rapidsai/base:25.10-cuda12-py3.13",
+  "runArgs": [
+    "--gpus=all",
+    "--shm-size=1g",
+    "--ulimit=memlock=-1",
+    "--ulimit=stack=67108864"
+  ]
+}
+```
+
+### Projekt im Container ausführen
+
+Nachdem der Container gestartet ist:
+
+```bash
+uv run main.py        # Hauptprogramm
+uv run gpu_test.py    # GPU-Test
+```
 
 ---
