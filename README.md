@@ -56,8 +56,6 @@ sudo apt-get update
 sudo apt-get install -y cuda-toolkit-12-6
 ```
 
-Dies installiert das CUDA Toolkit, das für GPU-Unterstützung erforderlich ist.
-
 ---
 
 ## Schritt 5: Umgebungsvariablen konfigurieren
@@ -69,11 +67,6 @@ echo 'export PATH=/usr/local/cuda-12.6/bin:$PATH' >> ~/.bashrc
 echo 'export LD_LIBRARY_PATH=/usr/local/cuda-12.6/lib64:$LD_LIBRARY_PATH' >> ~/.bashrc
 source ~/.bashrc
 ```
-
-Diese Befehle:
-- Fügen den CUDA-Bin-Ordner zum PATH hinzu
-- Konfigurieren die Library-Pfade für CUDA
-- Laden die aktualisierte Konfiguration sofort
 
 ---
 
@@ -97,8 +90,6 @@ Installiere den `uv` Package Manager von Astral:
 curl -LsSf https://astral.sh/uv/install.sh | sh
 ```
 
-`uv` ist ein schneller Python-Package-Manager und wird für dieses Projekt verwendet.
-
 Synchronisiere die Abhängigkeiten des Projekts:
 
 ```bash
@@ -115,8 +106,6 @@ uv sync
 uv run main.py
 ```
 
-Dies führt das Hauptprogramm aus und überprüft, ob die grundlegende Installation funktioniert.
-
 ---
 
 ## Schritt 9: GPU-Nutzung testen
@@ -126,8 +115,6 @@ Dies führt das Hauptprogramm aus und überprüft, ob die grundlegende Installat
 ```bash
 uv run gpu_test.py
 ```
-
-Dieses Skript testet, ob die GPU korrekt erkannt und genutzt wird.
 
 ---
 
