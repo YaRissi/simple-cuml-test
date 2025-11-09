@@ -1,0 +1,15 @@
+[project]
+name = "leonie"
+version = "0.1.0"
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "cudf-cu12>=25.10.0",
+    "cugraph-cu12>=25.10.1",
+    "cuml-cu12>=25.10.0",
+]
+
+[[tool.uv.index]]
+name = "nvidia"
+url = "https://pypi.nvidia.com/"
+explicit = true
